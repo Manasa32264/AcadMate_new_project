@@ -1,0 +1,14 @@
+.pdf-list-page { background-color: #fbf9f1; min-height: 100vh; }
+.pdf-list-main { padding: 3rem 1rem; }
+.page-header { text-align: center; margin-bottom: 3rem; }
+.back-btn { display: inline-flex; align-items: center; color: #f4b30c; text-decoration: none; font-weight: 600; margin-bottom: 2rem; }
+.page-header h2 { font-size: 2.2rem; color: #1a1200; margin-bottom: 1rem; }
+.page-header p { font-size: 1.1rem; color: #1a1200; opacity: 0.7; }
+.pdf-list { display: flex; flex-direction: column; gap: 1rem; max-width: 800px; margin: 0 auto; }
+.pdf-list-item { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: white; border-radius: 12px; text-decoration: none; color: #1a1200; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; border: 2px solid transparent; }
+.pdf-list-item:hover { transform: translateY(-4px) translateX(4px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-color: #f4b30c; }
+.pdf-icon { font-size: 1.5rem; }
+.pdf-title { flex-grow: 1; font-weight: 600; }
+.arrow { font-size: 1.5rem; color: #f4b30c; transition: transform 0.3s ease; }
+.pdf-list-item:hover .arrow { transform: translateX(5px); }
+.no-pdfs { text-align: center; font-size: 1.2rem; opacity: 0.7; padding: 2rem; background-color: #fff; border-radius: 12px; }
