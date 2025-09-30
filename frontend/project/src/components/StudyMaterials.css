@@ -1,0 +1,67 @@
+/* Study Materials Navigation Styles */
+.study-materials-container {
+  min-height: 100vh;
+  background-color: var(--beige);
+}
+
+.simple-nav {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 100;
+}
+
+.back-arrow-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(244, 179, 12, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-arrow-btn:hover {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(244, 179, 12, 0.4);
+}
+
+.study-materials-content {
+  padding: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .simple-nav {
+    top: 70px;
+    left: 15px;
+  }
+  
+  .back-arrow-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .simple-nav {
+    top: 60px;
+    left: 10px;
+  }
+  
+  .back-arrow-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
