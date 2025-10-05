@@ -1,146 +1,220 @@
-import React, { useState, useEffect } from 'react'
-import './Calendar.css'
+import React, { useState, useRef, useEffect } from "react";
+import "./ChatbotHub.css";
 
-const Calendar = ({ onBack }) => {
-  const [events, setEvents] = useState([
-    { id: 1, title: 'Fee Due Date', date: '2025-02-15', type: 'fee', isCollege: true },
-    { id: 2, title: 'Mid-term Exams', date: '2025-02-20', type: 'exam', isCollege: true },
-    { id: 3, title: 'Sports Day', date: '2025-02-28', type: 'event', isCollege: true }
-  ])
-  
-  const [newEvent, setNewEvent] = useState({ title: '', date: '', type: 'event' })
-  const [notification, setNotification] = useState('')
-  const [currentMonth, setCurrentMonth] = useState(new Date())
+const ChatbotHub = () => {
+  const [activeMode, setActiveMode] = useState("eduboat");
+  const [messages, setMessages] = useState({
+    quickhelp: [{ type: "bot", text: "Welcome to QuickHelp! Get instant explanations ⚡" }],
+    examprep: [{ type: "bot", text: "Welcome to ExamPrep! Get exam-ready answers ✍️" }],
+    deepdive: [{ type: "bot", text: "Welcome to DeepDive! Explore concepts thoroughly 🌊" }]
+  });
+  const [input, setInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const chatboxRef = useRef(null);
 
+  const sendMessage = () => {
+    if (!input.trim()) return;
+
+    // Add user message
+    setMessages(prev => ({
+      ...prev,
+      [activeMode]: [...prev[activeMode], { type: "user", text: input }]
+    }));
+    setInput("");
+    setIsTyping(true);
+
+    // Simulate bot response
+    setTimeout(() => {
+      let response = "";
+      
+      if (activeMode === "quickhelp") {
+        response = "Quick explanation: " + input;
+      } else if (activeMode === "examprep") {
+        response = "Here's the exam-ready answer for: " + input;
+      } else if (activeMode === "deepdive") {
+        response = "Here's a deep-dive explanation for: " + input;
+      }
+
+      setMessages(prev => ({
+        ...prev,
+        [activeMode]: [
+          ...prev[activeMode],
+          { type: "bot", text: response }
+        ]
+      }));
+      setIsTyping(false);
+    }, 800);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
+
+  // Scroll to bottom when messages change
   useEffect(() => {
-    const today = new Date()
-    const feeEvents = events.filter(event => 
-      event.type === 'fee' && 
-      new Date(event.date) > today &&
-      new Date(event.date) <= new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
-    )
-    
-    if (feeEvents.length > 0) {
-      setNotification(`⚠️ Fee due in ${Math.ceil((new Date(feeEvents[0].date) - today) / (1000 * 60 * 60 * 24))} days!`)
-      setTimeout(() => setNotification(''), 5000)
+    if (chatboxRef.current) {
+      chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
     }
-  }, [events])
+  }, [messages, isTyping, activeMode]);
 
-  const addEvent = () => {
-    if (newEvent.title && newEvent.date) {
-      setEvents([...events, { id: Date.now(), ...newEvent, isCollege: false }])
-      setNewEvent({ title: '', date: '', type: 'event' })
+  // Scroll reveal animation for EduBoat cards
+  useEffect(() => {
+    if (activeMode === "eduboat") {
+      const reveals = document.querySelectorAll(".reveal");
+
+      const handleScroll = () => {
+        for (let i = 0; i < reveals.length; i++) {
+          const windowHeight = window.innerHeight;
+          const elementTop = reveals[i].getBoundingClientRect().top;
+          const elementVisible = 100;
+
+          if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+          } else {
+            reveals[i].classList.remove("active");
+          }
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      handleScroll(); // run once on mount
+
+      return () => window.removeEventListener("scroll", handleScroll);
     }
-  }
+  }, [activeMode]);
 
-  const handleKeyPress = (e) => { if (e.key === 'Enter') addEvent() }
-
-  const getDaysInMonth = (date) => {
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const firstDay = new Date(year, month, 1)
-    const lastDay = new Date(year, month + 1, 0)
-    const daysInMonth = lastDay.getDate()
-    const startingDayOfWeek = firstDay.getDay()
-    
-    const days = []
-    for (let i = 0; i < startingDayOfWeek; i++) days.push(null)
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`
-      const dayEvents = events.filter(event => event.date === dateStr)
-      days.push({ day, events: dayEvents })
+  // Get the appropriate gradient and styling based on active mode
+  const getModeConfig = () => {
+    switch (activeMode) {
+      case "quickhelp":
+        return {
+          name: "⚡ QuickHelp",
+          gradient: "linear-gradient(135deg, #a18cd1, #fbc2eb)",
+          userGradient: "linear-gradient(135deg, #42a5f5, #1e88e5)"
+        };
+      case "examprep":
+        return {
+          name: "📘 ExamPrep",
+          gradient: "linear-gradient(135deg, #667eea, #5a67f2)",
+          userGradient: "linear-gradient(135deg, #667eea, #5a67f2)"
+        };
+      case "deepdive":
+        return {
+          name: "🔍 DeepDive",
+          gradient: "linear-gradient(135deg, #ff7e5f, #feb47b)",
+          userGradient: "linear-gradient(135deg, #667eea, #5a67f2)"
+        };
+      default:
+        return {
+          name: "🚢 EduBoat",
+          gradient: "linear-gradient(135deg, #4facfe, #00f2fe)",
+          userGradient: "linear-gradient(135deg, #42a5f5, #1e88e5)"
+        };
     }
-    return days
-  }
+  };
 
-  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-  const weekDays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+  const modeConfig = getModeConfig();
+  const currentMessages = messages[activeMode] || [];
 
-  return (
-    <div className="calendar-container">
-      <h2 className="calendar-title">📅 EventBuddy</h2>
+  // If we're in EduBoat mode, show the card interface
+  if (activeMode === "eduboat") {
+    return (
+      <div className="eduboat-container">
+        {/* Header */}
+        <header className="header reveal">
+          <h1>AcadBoat</h1>
+          <p className="subtitle">Study made simple with smart support.</p>
+        </header>
 
-      {notification && <div className="notification">{notification}</div>}
-
-      {/* Add Event Form */}
-      <div className="event-form-section">
-        <h3>Add New Event</h3>
-        <div className="event-form">
-          <div className="form-row">
-            <div className="input-group">
-              <label htmlFor="event-title">Event Title</label>
-              <input id="event-title" type="text" placeholder="Enter event title" 
-                value={newEvent.title} onChange={(e)=>setNewEvent({...newEvent,title:e.target.value})} 
-                onKeyPress={handleKeyPress} className="form-input" />
-            </div>
-            <div className="input-group">
-              <label htmlFor="event-date">Date</label>
-              <input id="event-date" type="date" 
-                value={newEvent.date} onChange={(e)=>setNewEvent({...newEvent,date:e.target.value})} 
-                className="form-input" />
-            </div>
-            <div className="input-group">
-              <label htmlFor="event-type">Type</label>
-              <select id="event-type" value={newEvent.type} 
-                onChange={(e)=>setNewEvent({...newEvent,type:e.target.value})} 
-                className="form-input">
-                <option value="event">Event</option>
-                <option value="exam">Exam</option>
-                <option value="assignment">Assignment</option>
-                <option value="fee">Fee Due</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <button onClick={addEvent} className="btn btn-add">Add Event</button>
+        {/* Cards */}
+        <div className="card-section">
+          <div className="card reveal" onClick={() => setActiveMode("quickhelp")}>
+            <h3>⚡ QuickHelp</h3>
+            <p>Quick explanations that make hard topics easy to understand.</p>
+          </div>
+          <div className="card reveal" onClick={() => setActiveMode("deepdive")}>
+            <h3>🔍 DeepDive</h3>
+            <p>Explore concepts deeply with clarity and precision.</p>
+          </div>
+          <div className="card reveal" onClick={() => setActiveMode("examprep")}>
+            <h3>📘 ExamPrep</h3>
+            <p>Structured notes and strategies to excel in exams.</p>
           </div>
         </div>
-      </div>
 
-      {/* Calendar Navigation */}
-      <div className="calendar-nav-section">
-        <div className="calendar-nav">
-          <button onClick={()=>setCurrentMonth(new Date(currentMonth.getFullYear(),currentMonth.getMonth()-1))} className="btn nav-btn">←</button>
-          <h3>{monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}</h3>
-          <button onClick={()=>setCurrentMonth(new Date(currentMonth.getFullYear(),currentMonth.getMonth()+1))} className="btn nav-btn">→</button>
-        </div>
+        {/* Footer */}
+        <footer className="footer reveal">
+          ✨ Happy learning!
+        </footer>
       </div>
+    );
+  }
 
-      {/* Calendar Grid */}
-      <div className="calendar-grid-section">
-        <div className="calendar-grid">
-          {weekDays.map(day=><div key={day} className="calendar-header-day">{day}</div>)}
-          {getDaysInMonth(currentMonth).map((day,index)=>(
-            <div key={index} className={`calendar-day ${day?.events?.length?'has-event':''}`}>
-              {day && <>
-                <div className="day-number">{day.day}</div>
-                {day.events.map(event=>(
-                  <div key={event.id} className={`event-item ${event.type}`}>{event.title}{event.isCollege && <span className="college-badge">📚</span>}</div>
-                ))}
-              </>}
+  // If we're in a specific chatbot mode, show the chat interface
+  return (
+    <div className="chatbot-hub">
+              {/* Header */}
+              <header className="chatbot-header">
+                <button 
+                  onClick={() => setActiveMode("eduboat")}
+                  className="back-button-header"
+                  title="Back to AcadBoat"
+                >
+                </button>
+                <h1>{modeConfig.name}</h1>
+                <p className="chatbot-subtitle">
+                  {activeMode === "quickhelp" && "Get instant explanations for quick understanding"}
+                  {activeMode === "examprep" && "Structured answers and strategies for exam success"}
+                  {activeMode === "deepdive" && "Comprehensive explanations with detailed insights"}
+                </p>
+              </header>
+
+      {/* Chat Area */}
+      <div className="chatbox">
+        <div ref={chatboxRef} className="messages-container">
+          {currentMessages.map((msg, index) => (
+            <div
+              key={index}
+              className={`message ${msg.type}`}
+            >
+              {msg.text}
             </div>
           ))}
-        </div>
-      </div>
 
-      {/* Upcoming Events */}
-      <div className="upcoming-events-section">
-        <h3>Upcoming Events</h3>
-        <div className="events-grid">
-          {events.filter(event=>new Date(event.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,6)
-            .map(event=>(
-              <div key={event.id} className={`event-card ${event.type}`}>
-                <div className="event-info">
-                  <strong>{event.title}</strong>
-                  <span className="event-date">{new Date(event.date).toLocaleDateString()}</span>
-                  {event.isCollege && <span className="college-badge">College Event</span>}
-                </div>
+          {isTyping && (
+            <div className="typing-indicator">
+              <span>Bot is typing</span>
+              <div className="typing-dots">
+                <span className="dot"></span>
+                <span className="dot"></span>
+                <span className="dot"></span>
               </div>
-            ))
-          }
+            </div>
+          )}
+        </div>
+
+        {/* Input Area */}
+        <div className="input-area">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            placeholder="Type your question..."
+            className="message-input"
+          />
+          <button
+            onClick={sendMessage}
+            className="send-button"
+          >
+            Send
+          </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Calendar
+export default ChatbotHub;

@@ -528,4 +528,50 @@
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
+
+}
+
+/* Formatted Answer Styles */
+.formatted-answer {
+  line-height: 1.8;
+}
+
+.answer-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 1rem 0 0.75rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.answer-heading:first-child {
+  margin-top: 0;
+}
+
+.answer-text {
+  color: #374151;
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.bullet-section {
+  margin: 0.75rem 0;
+}
+
+.bullet-item {
+  margin: 0.5rem 0 0.5rem 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid #6366f1;
+}
+
+.bullet-title {
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.bullet-content {
+  color: #4b5563;
+  margin-left: 0.25rem;
 }
