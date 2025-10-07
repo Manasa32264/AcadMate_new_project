@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --beige: #fbf9f1;
+  --accent: #f4b30c;
+  --black: black;
+  --brown: #1a1200;
+  --beige-footer: #ddd9c5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: var(--beige);
+  color: var(--brown);
+  line-height: 1.6;
+}
+
+.custom-beige {
+  background-color: var(--beige);
+}
+
+.custom-accent {
+  background-color: var(--accent);
+}
+
+.custom-brown {
+  color: var(--brown);
+}
+
+.custom-beige-footer {
+  background-color: var(--beige-footer);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.border-accent {
+  border-color: var(--accent);
+}
+
+.hover-accent:hover {
+  background-color: var(--accent);
+  color: var(--brown);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(26, 18, 0, 0.1);
+}
+
+/* Soft fade animation utility */
+@keyframes fade-soft {
+  0% { opacity: 0.5; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.fade-soft {
+  animation: fade-soft 3s ease-in-out infinite alternate;
+}
+
+/* Shimmering gradient text animation */
+@keyframes shimmer-slide {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #f59e0b, #fde68a, #f59e0b);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-slide 2.5s linear infinite;
+}
+
+/* Improves readability on light backgrounds */
+.text-outline-dark {
+  text-shadow: 0.8px 0.8px 0 #2b2100,
+               -0.8px 0.8px 0 #2b2100,
+               0.8px -0.8px 0 #2b2100,
+               -0.8px -0.8px 0 #2b2100;
+}
+
+/* Subtle large heading shadow for better contrast */
+.heading-shadow {
+  text-shadow: 0 2px 2px rgba(0,0,0,0.08),
+               0 6px 12px rgba(0,0,0,0.06);
+}
+
+/* Stronger shadow with soft golden glow */
+.heading-glow {
+  text-shadow:
+    0 3px 3px rgba(0,0,0,0.14),
+    0 12px 24px rgba(0,0,0,0.12),
+    0 0 14px rgba(244, 179, 12, 0.22),
+    0 0 30px rgba(244, 179, 12, 0.12);
+}

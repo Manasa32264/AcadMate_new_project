@@ -1,0 +1,226 @@
+.pdf-viewer-page {
+    min-height: 100vh;
+    background-color: #fbf9f1;
+  }
+  
+  .pdf-main {
+    padding: 3rem 0;
+  }
+  
+  .pdf-header {
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    color: #f4b30c;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: white;
+  }
+  
+  .pdf-header h2 {
+    font-size: 2.2rem;
+    color: #1a1200;
+    text-align: center;
+  }
+  
+  .pdf-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .pdf-placeholder {
+    background: white;
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(26, 18, 0, 0.1);
+    border: 2px solid #ddd9c5;
+  }
+  
+  .pdf-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    color: #f4b30c;
+  }
+  
+  .pdf-placeholder h3 {
+    font-size: 2rem;
+    color: #1a1200;
+    margin-bottom: 1rem;
+  }
+  
+  .pdf-placeholder p {
+    font-size: 1.1rem;
+    color: #1a1200;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  
+  .pdf-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .pdf-actions .btn {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+  
+  /* PYQs specific styles */
+  .pyqs-list {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .pyqs-list h3 {
+    font-size: 2rem;
+    color: #1a1200;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .pyq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .pyq-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(26, 18, 0, 0.1);
+    border: 2px solid #ddd9c5;
+    transition: transform 0.3s ease;
+  }
+  
+  .pyq-card:hover {
+    transform: translateY(-3px);
+    border-color: #f4b30c;
+  }
+  
+  .pyq-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .pyq-card h4 {
+    font-size: 1.3rem;
+    color: #1a1200;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .pyq-card p {
+    color: #1a1200;
+    opacity: 0.7;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .pyq-card .pdf-placeholder {
+    padding: 1.5rem;
+    background-color: #fbf9f1;
+    border-radius: 12px;
+    border: 1px solid #ddd9c5;
+    box-shadow: none;
+  }
+  
+  .pyq-card .pdf-placeholder p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pyq-card .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .pdf-main {
+      padding: 2rem 0;
+    }
+    
+    .pdf-header h2 {
+      font-size: 1.8rem;
+    }
+    
+    .pdf-placeholder {
+      padding: 3rem 1.5rem;
+    }
+    
+    .pdf-icon {
+      font-size: 4rem;
+    }
+    
+    .pdf-placeholder h3 {
+      font-size: 1.5rem;
+    }
+    
+    .pdf-placeholder p {
+      font-size: 1rem;
+    }
+    
+    .pdf-actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .pdf-actions .btn {
+      width: 100%;
+      max-width: 200px;
+    }
+    
+    .pyq-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .pdf-placeholder {
+      padding: 2rem 1rem;
+    }
+    
+    .pdf-icon {
+      font-size: 3rem;
+    }
+    
+    .pdf-placeholder h3 {
+      font-size: 1.3rem;
+    }
+    
+    .pyq-card {
+      padding: 1.5rem;
+    }
+    
+    .pyq-card h4 {
+      font-size: 1.1rem;
+    }
+    
+    .pyq-card .pdf-placeholder {
+      padding: 1rem;
+    }
+    
+    .pyqs-list h3 {
+      font-size: 1.5rem;
+    }
+  }
