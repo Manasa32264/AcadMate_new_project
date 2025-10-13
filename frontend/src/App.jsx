@@ -248,7 +248,7 @@ function App() {
         onSectionChange={handleSectionChange}
       />
       {renderContent()}
-      <Footer onSectionChange={handleSectionChange} />
+      {activeSection !== 'Chatbot' && <Footer onSectionChange={handleSectionChange} />}
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}

@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./ChatbotHub.css";
+import { QuickHelpCard } from "./QuickHelp";
+import { DeepDiveCard } from "./DeepDive";
+import { ExamPrepCard } from "./ExamPrep";
 
 const ChatbotHub = () => {
   const [activeMode, setActiveMode] = useState("eduboat");
@@ -23,24 +26,25 @@ const ChatbotHub = () => {
     setInput("");
     setIsTyping(true);
 
-    // Simulate bot response
+    // Integrate your unified ChatbotHub AI API here based on `activeMode`:
+    // Example structure (replace setTimeout with real calls):
+    // const endpoint = activeMode === "quickhelp" ? "/api/quickhelp" : activeMode === "examprep" ? "/api/examprep" : "/api/deepdive";
+    // fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: input }) })
+    //   .then(res => res.json())
+    //   .then(data => setMessages(prev => ({ ...prev, [activeMode]: [...prev[activeMode], { type: "bot", text: data.answer }] })))
+    //   .catch(() => setMessages(prev => ({ ...prev, [activeMode]: [...prev[activeMode], { type: "bot", text: "Sorry, something went wrong." }] })))
+    //   .finally(() => setIsTyping(false));
+
+    // Simulated bot response (remove when API is wired)
     setTimeout(() => {
       let response = "";
-      
-      if (activeMode === "quickhelp") {
-        response = "Quick explanation: " + input;
-      } else if (activeMode === "examprep") {
-        response = "Here's the exam-ready answer for: " + input;
-      } else if (activeMode === "deepdive") {
-        response = "Here's a deep-dive explanation for: " + input;
-      }
+      if (activeMode === "quickhelp") response = "Quick explanation: " + input;
+      else if (activeMode === "examprep") response = "Here's the exam-ready answer for: " + input;
+      else if (activeMode === "deepdive") response = "Here's a deep-dive explanation for: " + input;
 
       setMessages(prev => ({
         ...prev,
-        [activeMode]: [
-          ...prev[activeMode],
-          { type: "bot", text: response }
-        ]
+        [activeMode]: [...prev[activeMode], { type: "bot", text: response }]
       }));
       setIsTyping(false);
     }, 800);
@@ -130,17 +134,14 @@ const ChatbotHub = () => {
 
         {/* Cards */}
         <div className="card-section">
-          <div className="card reveal" onClick={() => setActiveMode("quickhelp")}>
-            <h3>⚡ QuickHelp</h3>
-            <p>Quick explanations that make hard topics easy to understand.</p>
+          <div className="reveal" onClick={() => setActiveMode("quickhelp")} style={{ cursor: "pointer" }}>
+            <QuickHelpCard />
           </div>
-          <div className="card reveal" onClick={() => setActiveMode("deepdive")}>
-            <h3>🔍 DeepDive</h3>
-            <p>Explore concepts deeply with clarity and precision.</p>
+          <div className="reveal" onClick={() => setActiveMode("deepdive")} style={{ cursor: "pointer" }}>
+            <DeepDiveCard />
           </div>
-          <div className="card reveal" onClick={() => setActiveMode("examprep")}>
-            <h3>📘 ExamPrep</h3>
-            <p>Structured notes and strategies to excel in exams.</p>
+          <div className="reveal" onClick={() => setActiveMode("examprep")} style={{ cursor: "pointer" }}>
+            <ExamPrepCard />
           </div>
         </div>
 

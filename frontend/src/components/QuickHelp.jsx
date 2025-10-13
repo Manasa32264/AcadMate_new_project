@@ -1,4 +1,60 @@
 import React, { useState, useRef, useEffect } from "react";
+import Lottie from "lottie-react";
+
+// Hero card shown on EduBoat page. Contains an animation slot you can attach.
+export const QuickHelpCard = () => {
+  const [animData, setAnimData] = useState(null);
+  useEffect(() => {
+    fetch("/animations/quickhelp.json")
+      .then((r) => r.json())
+      .then(setAnimData)
+      .catch(() => setAnimData(null));
+  }, []);
+  return (
+    <div className="hero-card quickhelp-card">
+      <div className="hero-content">
+        <div className="hero-text">
+          <p className="hero-eyebrow">Meet the</p>
+          <h2 className="hero-title">QuickHelp!</h2>
+          <p className="hero-sub">Get instant explanations, concise and clear.</p>
+        </div>
+        <div className="hero-animation" aria-label="animation-slot" data-slot="quickhelp-animation">
+          {animData ? (
+            <Lottie animationData={animData} loop autoplay style={{ width: "100%", height: "100%" }} />
+          ) : null}
+        </div>
+      </div>
+      <div className="hero-cta">
+        <span>Get Started</span>
+        <span className="cta-arrow">›</span>
+      </div>
+      <style>{`
+        .hero-card {
+          position: relative;
+          width: 340px; /* tall, narrow like reference */
+          height: 600px;
+          border-radius: 28px;
+          padding: 20px;
+          background: linear-gradient(135deg, var(--white), var(--beige));
+          color: var(--brown);
+          box-shadow: 0 20px 46px rgba(26, 18, 0, 0.15);
+          overflow: hidden;
+          border: 1px solid var(--beige-footer);
+        }
+        .hero-card:before { content: ""; position: absolute; inset: 1px; border-radius: 26px; background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0)); pointer-events: none; }
+        .hero-content { display: grid; grid-template-rows: auto 1fr; height: calc(100% - 84px); gap: 12px; }
+        .hero-text { padding: 6px 4px; }
+        .hero-eyebrow { margin: 0; font-size: 1.05rem; color: var(--brown); opacity: 0.8; }
+        .hero-title { margin: 2px 0 6px 0; font-size: 2.2rem; font-weight: 900; color: var(--accent); }
+        .hero-sub { margin: 0; color: var(--brown); opacity: 0.9; font-size: 1rem; }
+        .hero-animation { align-self: end; justify-self: center; width: 260px; height: 320px; border-radius: 22px; background: transparent; box-shadow: none; display: flex; align-items: center; justify-content: center; }
+        .hero-cta { position: absolute; bottom: 16px; left: 16px; right: 16px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; background: var(--accent); color: var(--brown); box-shadow: 0 10px 24px rgba(244, 179, 12, 0.35); }
+        .cta-arrow { font-size: 1.6rem; line-height: 1; }
+        .quickhelp-card .hero-title { color: var(--accent); }
+      `}</style>
+    </div>
+  );
+};
 
 const QuickHelp = () => {
   const [messages, setMessages] = useState([
@@ -14,6 +70,20 @@ const QuickHelp = () => {
     setMessages(prev => [...prev, { type: "user", text: input }]);
     setInput("");
     setIsTyping(true);
+
+    // Integrate your QuickHelp AI API here:
+    // 1) Replace the setTimeout below with your fetch/axios call.
+    // 2) Set the bot response using setMessages once you receive the answer.
+    // Example:
+    // fetch("/api/quickhelp", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ query: input }) })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     setMessages(prev => [...prev, { type: "bot", text: data.answer }]);
+    //   })
+    //   .catch(() => {
+    //     setMessages(prev => [...prev, { type: "bot", text: "Sorry, something went wrong." }]);
+    //   })
+    //   .finally(() => setIsTyping(false));
 
     setTimeout(() => {
       setMessages(prev => [

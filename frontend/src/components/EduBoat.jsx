@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./EduBoat.css";
+import { QuickHelpCard } from "./QuickHelp";
+import { DeepDiveCard } from "./DeepDive";
+import { ExamPrepCard } from "./ExamPrep";
 
 const EduBoat = () => {
   useEffect(() => {
@@ -36,18 +39,15 @@ const EduBoat = () => {
 
       {/* Cards */}
       <div className="card-section">
-        <div className="card reveal">
-          <h3><Link to="/quickhelp">⚡ QuickHelp</Link></h3>
-          <p>Quick explanations that make hard topics easy to understand.</p>
-        </div>
-        <div className="card reveal">
-          <h3><Link to="/deepdive">🔍 DeepDive</Link></h3>
-          <p>Explore concepts deeply with clarity and precision.</p>
-        </div>
-        <div className="card reveal">
-          <h3><Link to="/examprep">📘 ExamPrep</Link></h3>
-          <p>Structured notes and strategies to excel in exams.</p>
-        </div>
+        <Link to="/quickhelp" className="reveal" style={{ textDecoration: "none" }}>
+          <QuickHelpCard />
+        </Link>
+        <Link to="/deepdive" className="reveal" style={{ textDecoration: "none" }}>
+          <DeepDiveCard />
+        </Link>
+        <Link to="/examprep" className="reveal" style={{ textDecoration: "none" }}>
+          <ExamPrepCard />
+        </Link>
       </div>
 
       {/* Footer */}

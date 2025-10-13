@@ -11,6 +11,16 @@
 .header {
   text-align: center;
   margin-bottom: 3rem;
+  border: none;
+  border-bottom: none;
+  box-shadow: none;
+  position: relative;
+}
+
+.header::before,
+.header::after {
+  display: none !important;
+  content: none !important;
 }
 
 .header h1 {
@@ -19,6 +29,32 @@
   color: var(--accent);
   margin-bottom: 0.5rem;
   letter-spacing: 2px;
+  border: none;
+  border-bottom: none;
+  text-decoration: none;
+  box-shadow: none;
+  text-shadow: none;
+  outline: none;
+  background: none;
+  position: relative;
+}
+
+.header h1::before,
+.header h1::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Remove any decorative lines or elements */
+.eduboat-container .header *::before,
+.eduboat-container .header *::after {
+  display: none !important;
+  content: none !important;
+}
+
+.eduboat-container .header {
+  background: none !important;
+  background-image: none !important;
 }
 
 .subtitle {
@@ -214,13 +250,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(251,249,241,0.9));
-  backdrop-filter: blur(10px);
+  background: transparent;
+  backdrop-filter: none;
   max-height: 70vh;
-  border-radius: 20px;
-  margin: 1rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 0;
+  margin: 0;
+  box-shadow: none;
+  border: none;
   position: relative;
   overflow: hidden;
 }
